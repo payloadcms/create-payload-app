@@ -4,6 +4,9 @@
   "bin": {
     "create-payload-app": "bin/cli.js"
   },
+  "scripts": {
+    "build": "tsc"
+  },
   "files": [
     "package.json",
     "bin",
@@ -23,5 +26,12 @@
     "prompts": "^2.4.0",
     "terminal-link": "^2.1.1"
   },
-  "version": "0.1.22"
+  "version": "0.1.22",
+  "devDependencies": {
+    "@types/command-exists": "^1.2.0",
+    "@types/fs-extra": "^9.0.12",
+    "@types/node": "^16.6.2",
+    "@types/prompts": "^2.4.0",
+    "typescript": "^4.3.5"
+  }
 }

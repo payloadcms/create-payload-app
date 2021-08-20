@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-const { getArgs } = require('../utils/getArgs');
-const { getTemplate } = require('../utils/getTemplate');
-const { getProjectName } = require('../utils/getProjectName');
-const { createProject } = require('../utils/createProject');
-const { welcomeMessage, helpMessage, successMessage } = require('../utils/messages');
-const { success } = require('../utils/log');
-const { getDatabaseConnection } = require('../utils/getDatabaseConnection');
-const { getPayloadSecret } = require('../utils/getPayloadSecret');
-const { writeEnvFile } = require('../utils/writeEnvFile');
-const { getLanguage } = require('../utils/getLanguage');
-const { validateTemplate } = require('../utils/getValidTemplates');
-const { error } = require('../utils/log');
-const { init, handleException } = require('../utils/usage');
+import { getArgs } from '../src/utils/getArgs';
+import { getTemplate } from '../src/utils/getTemplate';
+import { getProjectName } from '../src/utils/getProjectName';
+import { createProject } from '../src/lib/createProject';
+import { welcomeMessage, helpMessage, successMessage } from '../src/utils/messages';
+import { success } from '../src/utils/log';
+import { getDatabaseConnection } from '../src/utils/getDatabaseConnection';
+import { getPayloadSecret } from '../src/utils/getPayloadSecret';
+import { writeEnvFile } from '../src/utils/writeEnvFile';
+import { getLanguage } from '../src/utils/getLanguage';
+import { validateTemplate } from '../src/utils/getValidTemplates';
+import { error } from '../src/utils/log';
+import { init, handleException } from '../src/utils/usage';
 
 const trx = init();
 
