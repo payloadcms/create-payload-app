@@ -5,7 +5,8 @@
     "create-payload-app": "bin/cli.js"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint \"src/**/*.ts\""
   },
   "files": [
     "package.json",
@@ -32,6 +33,13 @@
     "@types/fs-extra": "^9.0.12",
     "@types/node": "^16.6.2",
     "@types/prompts": "^2.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2",
     "typescript": "^4.3.5"
   }
 }

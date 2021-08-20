@@ -6,7 +6,7 @@ import ora from 'ora'
 
 import { success, error, warning } from '../utils/log'
 import { setTags } from '../utils/usage'
-import { CliArgs } from '../types'
+import type { CliArgs } from '../types'
 
 function createProjectDir(projectDir: string) {
   fse.mkdirpSync(projectDir)
@@ -25,7 +25,7 @@ async function installDeps(
   if (args['--no-deps']) {
     return true
   }
-  let cmd = packageManager === 'yarn' ? 'yarn' : 'npm install --legacy-peer-deps'
+  const cmd = packageManager === 'yarn' ? 'yarn' : 'npm install --legacy-peer-deps'
 
   try {
     await execa.command(cmd, {

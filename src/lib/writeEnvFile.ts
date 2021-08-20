@@ -7,7 +7,7 @@ export async function writeEnvFile(
   databaseUri: string,
   payloadSecret: string,
 ) {
-  let content = `MONGODB_URI=${databaseUri}\nPAYLOAD_SECRET=${payloadSecret}`
+  const content = `MONGODB_URI=${databaseUri}\nPAYLOAD_SECRET=${payloadSecret}`
 
   try {
     const projectDir = `./${slugify(projectName)}`

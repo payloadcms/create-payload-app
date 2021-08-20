@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node'
-import { Primitive } from '@sentry/types'
+import type { Primitive } from '@sentry/types'
 import os from 'os'
 
 type SentryTags = { [key: string]: Primitive }

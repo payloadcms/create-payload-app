@@ -1,5 +1,5 @@
 import prompts from 'prompts'
-import { CliArgs } from '../types'
+import type { CliArgs } from '../types'
 import { setTags } from '../utils/usage'
 
 export async function parseTemplate(

@@ -1,5 +1,5 @@
 import prompts from 'prompts'
-import { CliArgs } from '../types'
+import type { CliArgs } from '../types'
 
 export async function parseLanguage(args: CliArgs): Promise<string> {
   if (args['--template']) return args['--template']
