@@ -15,3 +15,9 @@ export type Args = {
 }
 
 export type CliArgs = arg.Result<Args>
+
+export type ProjectTemplate = {
+  name: string
+  type: 'template' | 'starter'
+  url: string | undefined
+}

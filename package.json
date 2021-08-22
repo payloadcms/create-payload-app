@@ -2,10 +2,11 @@
   "name": "create-payload-app",
   "license": "MIT",
   "bin": {
-    "create-payload-app": "bin/cli.js"
+    "create-payload-app": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint \"src/**/*.ts\""
   },
   "files": [
@@ -25,6 +26,7 @@
     "fs-extra": "^9.0.1",
     "ora": "^5.1.0",
     "prompts": "^2.4.0",
+    "shelljs": "^0.8.4",
     "terminal-link": "^2.1.1"
   },
   "version": "0.1.22",
@@ -33,6 +35,7 @@
     "@types/fs-extra": "^9.0.12",
     "@types/node": "^16.6.2",
     "@types/prompts": "^2.4.0",
+    "@types/shelljs": "^0.8.9",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "eslint": "^7.32.0",

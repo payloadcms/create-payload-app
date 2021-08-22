@@ -1,5 +1,5 @@
 import { Main } from './main'
-import { init, handleException } from '../src/utils/usage'
+import { init, handleException } from './utils/usage'
 import { error } from './utils/log'
 ;(async () => {
   const trx = init()

@@ -3,10 +3,11 @@ import chalk from 'chalk'
 import fse from 'fs-extra'
 import execa from 'execa'
 import ora from 'ora'
+import shell from 'shelljs'
 
 import { success, error, warning } from '../utils/log'
 import { setTags } from '../utils/usage'
-import type { CliArgs } from '../types'
+import type { CliArgs, ProjectTemplate } from '../types'
 
 function createProjectDir(projectDir: string) {
   fse.mkdirpSync(projectDir)
@@ -71,7 +72,7 @@ async function updatePayloadVersion(projectDir: string) {
 export async function createProject(
   args: CliArgs,
   projectDir: string,
-  template: string,
+  template: ProjectTemplate,
   packageManager: string,
 ) {
   createProjectDir(projectDir)
@@ -81,14 +82,22 @@ export async function createProject(
     `\n  Creating a new Payload app in ${chalk.green(path.resolve(projectDir))}\n`,
   )
 
-  try {
-    await fse.copy(templateDir, projectDir)
-    success('Project directory created')
-  } catch (err) {
-    const msg =
-      'Unable to copy template files. Please check template name or directory permissions.'
-    error(msg)
-    process.exit(1)
+  if (template.type === 'starter') {
+    // TODO: Clone git here
+    if (shell.exec(`git clone --depth=1 ${template.url} ${projectDir}`).code !== 0) {
+      shell.echo('Error: Git clone failed')
+      shell.exit(1)
+    }
+  } else {
+    try {
+      await fse.copy(templateDir, projectDir)
+      success('Project directory created')
+    } catch (err) {
+      const msg =
+        'Unable to copy template files. Please check template name or directory permissions.'
+      error(msg)
+      process.exit(1)
+    }
   }
 
   const spinner = ora('Checking latest Payload version...').start()
