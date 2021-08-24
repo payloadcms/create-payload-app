@@ -37,11 +37,11 @@ export class Main {
     )
   }
 
-  async init() {
+  async init(): Promise<void> {
     try {
       if (this.args['--help']) {
         console.log(await helpMessage())
-        return 0
+        process.exit(0)
       }
       const templateArg = this.args['--template']
       if (templateArg) {

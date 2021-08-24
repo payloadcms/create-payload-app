@@ -10,7 +10,7 @@ export const welcomeMessage = chalk`
   {green Welcome to Payload. Let's create a project! }
 `
 
-export async function helpMessage() {
+export async function helpMessage(): Promise<string> {
   const validTemplates = await getValidTemplates()
   return chalk`
   {bold USAGE}
@@ -30,7 +30,7 @@ export async function helpMessage() {
 `
 }
 
-export function successMessage(projectDir: string, packageManager: string) {
+export function successMessage(projectDir: string, packageManager: string): string {
   return `
   ${header('Launch Application:')}
 

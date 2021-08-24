@@ -6,7 +6,7 @@ export async function writeEnvFile(
   projectName: string,
   databaseUri: string,
   payloadSecret: string,
-) {
+): Promise<void> {
   const content = `MONGODB_URI=${databaseUri}\nPAYLOAD_SECRET=${payloadSecret}`
 
   try {
@@ -18,5 +18,4 @@ export async function writeEnvFile(
     error(err)
     process.exit(1)
   }
-  return
 }

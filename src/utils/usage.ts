@@ -1,10 +1,10 @@
 import * as Sentry from '@sentry/node'
-import type { Primitive } from '@sentry/types'
+import type { Primitive, Transaction } from '@sentry/types'
 import os from 'os'
 
 type SentryTags = { [key: string]: Primitive }
 
-export const init = () => {
+export const init = (): Transaction => {
   Sentry.init({
     dsn: 'https://139de3d0197f464082d5715a0c48a497@o589961.ingest.sentry.io/5739829',
     tracesSampleRate: 1.0,
@@ -23,10 +23,10 @@ export const init = () => {
   })
 }
 
-export const setTags = (tags: SentryTags) => {
+export const setTags = (tags: SentryTags): void => {
   Sentry.setTags({ ...tags })
 }
 
-export const handleException = (e: unknown) => {
+export const handleException = (e: unknown): void => {
   Sentry.captureException(e)
 }

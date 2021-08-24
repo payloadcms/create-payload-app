@@ -16,8 +16,15 @@ export type Args = {
 
 export type CliArgs = arg.Result<Args>
 
-export type ProjectTemplate = {
+export type ProjectTemplate = StaticTemplate | GitTemplate
+
+export type StaticTemplate = {
   name: string
-  type: 'template' | 'starter'
-  url: string | undefined
+  type: 'static'
+}
+
+export type GitTemplate = {
+  name: string
+  type: 'starter'
+  url: string
 }

@@ -1,9 +1,9 @@
 import path from 'path'
 import fs from 'fs'
 import { error, info } from '../utils/log'
-import { ProjectTemplate } from '../types'
+import type { ProjectTemplate } from '../types'
 
-export async function validateTemplate(templateName: string) {
+export async function validateTemplate(templateName: string): Promise<boolean> {
   const validTemplates = await getValidTemplates()
   if (!validTemplates.map(t => t.name).includes(templateName)) {
     error(`'${templateName}' is not a valid template.`)
@@ -13,11 +13,12 @@ export async function validateTemplate(templateName: string) {
   return true
 }
 
-export async function getValidTemplates() {
+export async function getValidTemplates(): Promise<ProjectTemplate[]> {
   const templateDir = path.resolve(__dirname, '../templates')
   const dirs = getDirectories(templateDir)
+
   const templates: ProjectTemplate[] = dirs.map(name => {
-    return { name, type: 'template', url: undefined }
+    return { name, type: 'static' }
   })
   // TODO: Retrieve this dynamically
   templates.push({
