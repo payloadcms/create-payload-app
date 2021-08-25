@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import fse from 'fs-extra'
 import execa from 'execa'
 import ora from 'ora'
-import shell from 'shelljs'
+import degit from 'degit'
 
 import { success, error, warning } from '../utils/log'
 import { setTags } from '../utils/usage'
@@ -83,21 +83,13 @@ export async function createProject(
   )
 
   if (template.type === 'starter') {
-    if (
-      shell.exec(`git clone --depth=1 ${template.url} ${projectDir}`, {
-        silent: true,
-      }).code !== 0
-    ) {
-      shell.echo('Error: Git clone failed')
-      shell.exit(1)
-    }
-    await fse.rmdir(`${projectDir}/.git`, { recursive: true })
+    const emitter = degit(template.url)
+    await emitter.clone(projectDir)
   } else {
     try {
       await fse.copy(templateDir, projectDir, { recursive: true })
       success('Project directory created')
     } catch (err) {
-      console.log(err)
       const msg =
         'Unable to copy template files. Please check template name or directory permissions.'
       error(msg)

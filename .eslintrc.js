@@ -11,7 +11,7 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    'prettier'
+    'prettier',
   ],
   settings: {
     'import/resolver': {
@@ -20,7 +20,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ["node_modules", "src/templates"],
+  ignorePatterns: ['node_modules', 'src/templates', 'dist'],
   rules: {
     'prettier/prettier': 'error',
     'import/prefer-default-export': 'off',
