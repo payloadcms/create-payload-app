@@ -15,7 +15,6 @@ export async function parseTemplate(
     return template
   }
 
-  console.log('validTemplates', validTemplates)
   const filteredTemplates = validTemplates
     .filter(d => d.name.startsWith(language))
     .map(t => t.name.replace(`${language}-`, ''))

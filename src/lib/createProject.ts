@@ -9,9 +9,9 @@ import { success, error, warning } from '../utils/log'
 import { setTags } from '../utils/usage'
 import type { CliArgs, ProjectTemplate } from '../types'
 
-function createProjectDir(projectDir: string): void {
-  fse.mkdirpSync(projectDir)
-  const readDir = fse.readdirSync(projectDir)
+async function createProjectDir(projectDir: string): Promise<void> {
+  await fse.mkdir(projectDir)
+  const readDir = await fse.readdir(projectDir)
   if (readDir && readDir.length > 0) {
     error(`The project directory '${projectDir}' is not empty`)
     process.exit(1)
@@ -38,7 +38,7 @@ async function installDeps(
   }
 }
 
-async function getLatestPayloadVersion(): Promise<false | string> {
+export async function getLatestPayloadVersion(): Promise<false | string> {
   try {
     const { stdout } = await execa('npm info payload version', [], { shell: true })
     return `^${stdout}`
@@ -47,7 +47,7 @@ async function getLatestPayloadVersion(): Promise<false | string> {
   }
 }
 
-async function updatePayloadVersion(projectDir: string): Promise<void> {
+export async function updatePayloadVersion(projectDir: string): Promise<void> {
   const payloadVersion = await getLatestPayloadVersion()
   if (!payloadVersion) {
     warning(
@@ -57,11 +57,11 @@ async function updatePayloadVersion(projectDir: string): Promise<void> {
   }
   setTags({ payload_version: payloadVersion })
 
-  const pjson = path.resolve(projectDir, 'package.json')
+  const packageJsonPath = path.resolve(projectDir, 'package.json')
   try {
-    const packageObj = await fse.readJson(pjson)
+    const packageObj = await fse.readJson(packageJsonPath)
     packageObj.dependencies.payload = payloadVersion
-    await fse.writeJson(pjson, packageObj, { spaces: 2 })
+    await fse.writeJson(packageJsonPath, packageObj, { spaces: 2 })
   } catch (err) {
     warning(
       'Unable to write Payload version to package.json. Please update your package.json manually.',
@@ -94,7 +94,7 @@ export async function createProject(
     await fse.rmdir(`${projectDir}/.git`, { recursive: true })
   } else {
     try {
-      await fse.copy(templateDir, projectDir)
+      await fse.copy(templateDir, projectDir, { recursive: true })
       success('Project directory created')
     } catch (err) {
       console.log(err)
