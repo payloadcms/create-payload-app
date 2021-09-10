@@ -20,12 +20,6 @@ export async function getValidTemplates(): Promise<ProjectTemplate[]> {
   const templates: ProjectTemplate[] = dirs.map(name => {
     return { name, type: 'static' }
   })
-  // TODO: Retrieve this dynamically
-  templates.push({
-    name: 'ts-nextjs',
-    type: 'starter',
-    url: 'git@github.com:payloadcms/nextjs-custom-server.git',
-  })
   return templates
 }
 
