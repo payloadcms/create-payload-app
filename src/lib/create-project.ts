@@ -113,7 +113,11 @@ export async function createProject(
   }
 
   const spinner = ora('Checking latest Payload version...').start()
-  await updatePayloadVersion(projectDir, args['--beta'])
+
+  // Only use latest Payoad version if a brand new static template is being used
+  if (template.type === 'static') {
+    await updatePayloadVersion(projectDir, args['--beta'])
+  }
 
   spinner.text = 'Installing dependencies...'
   const result = await installDeps(args, projectDir, packageManager)

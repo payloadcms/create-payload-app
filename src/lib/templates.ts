@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import { error, info } from '../utils/log'
-import type { ProjectTemplate } from '../types'
+import type { GitTemplate, ProjectTemplate } from '../types'
 
 export async function validateTemplate(templateName: string): Promise<boolean> {
   const validTemplates = await getValidTemplates()
@@ -23,7 +23,15 @@ export async function getValidTemplates(): Promise<ProjectTemplate[]> {
       type: 'static',
     }
   })
-  return templates
+  const starters: GitTemplate[] = [
+    {
+      name: 'demo',
+      type: 'starter',
+      language: 'typescript',
+      url: 'https://github.com/payloadcms/public-demo',
+    },
+  ]
+  return [...templates, ...starters]
 }
 
 function getDirectories(dir: string): string[] {
