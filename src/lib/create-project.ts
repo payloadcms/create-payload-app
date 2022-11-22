@@ -86,7 +86,6 @@ export async function createProject(
   packageManager: string,
 ): Promise<void> {
   await createOrFindProjectDir(projectDir)
-  const templateDir = path.resolve(__dirname, `../templates/${template.name}`)
 
   console.log(
     `\n  Creating a new Payload app in ${chalk.green(path.resolve(projectDir))}\n`,
@@ -97,6 +96,10 @@ export async function createProject(
     await emitter.clone(projectDir)
   } else {
     try {
+      const templateDir = path.resolve(
+        __dirname,
+        `../templates/${template.directory}`,
+      )
       await fse.copy(templateDir, projectDir, { recursive: true })
       await writeCommonFiles(projectDir, template, packageManager)
 

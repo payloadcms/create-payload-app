@@ -35,6 +35,8 @@ describe('createProject', () => {
       const template: ProjectTemplate = {
         name: templateName,
         type: 'static',
+        language: 'typescript',
+        directory: 'ts-todo',
       }
       await createProject(args, projectDir, template, packageManager)
 
