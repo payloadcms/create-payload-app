@@ -15,10 +15,23 @@ export async function writeEnvFile(args: {
       template.type === 'starter' &&
       fs.existsSync(path.join(projectDir, '.env.example'))
     ) {
+      // Parse .env file into key/value pairs
+      const envFile = await fs.readFile(
+        path.join(projectDir, '.env.example'),
+        'utf8',
+      )
+      const envFileLines = envFile.split('\n')
+
+      const envFilePairs = envFileLines.map(line => {
+        const [key, value] = line.split('=')
+        return { key, value }
+      })
+
       await fs.copyFile(
         path.join(projectDir, '.env.example'),
         path.join(projectDir, '.env'),
       )
+
       return
     }
 
