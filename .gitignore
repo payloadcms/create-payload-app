@@ -1,3 +1,4 @@
+build
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos,vscode,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,macos,vscode,windows
@@ -9,7 +10,8 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
