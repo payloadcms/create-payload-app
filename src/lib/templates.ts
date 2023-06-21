@@ -15,21 +15,18 @@ export async function getValidTemplates(): Promise<ProjectTemplate[]> {
   const templates: ProjectTemplate[] = [
     {
       name: 'blank',
-      language: 'typescript',
       type: 'static',
       description: 'Blank',
       directory: 'ts-blank',
     },
     {
       name: 'todo',
-      language: 'typescript',
       type: 'static',
       description: 'Todo list',
       directory: 'ts-todo',
     },
     {
       name: 'blog',
-      language: 'typescript',
       type: 'static',
       description: 'Blog',
       directory: 'ts-blog',
@@ -40,16 +37,32 @@ export async function getValidTemplates(): Promise<ProjectTemplate[]> {
     {
       name: 'payload-demo',
       type: 'starter',
-      language: 'typescript',
       url: 'https://github.com/payloadcms/public-demo',
       description: 'Payload demo site at https://demo.payloadcms.com',
     },
     {
       name: 'payload-website',
       type: 'starter',
-      language: 'typescript',
       url: 'https://github.com/payloadcms/website-cms',
       description: 'Payload website CMS at https://payloadcms.com',
+    },
+    {
+      name: 'cloud-template-blank',
+      type: 'starter',
+      url: 'https://github.com/payloadcms/template-blank',
+      description: 'Blank template for Payload Cloud',
+    },
+    {
+      name: 'cloud-template-website',
+      type: 'starter',
+      url: 'https://github.com/payloadcms/template-website',
+      description: 'Website template for Payload Cloud',
+    },
+    {
+      name: 'cloud-template-ecommerce',
+      type: 'starter',
+      url: 'https://github.com/payloadcms/template-ecommerce',
+      description: 'E-commerce template for Payload Cloud',
     },
   ]
 
