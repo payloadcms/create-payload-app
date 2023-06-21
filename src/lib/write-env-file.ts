@@ -20,18 +20,30 @@ export async function writeEnvFile(args: {
         path.join(projectDir, '.env.example'),
         'utf8',
       )
-      const envFileLines = envFile.split('\n')
+      const envFileLines = envFile.split('\n').filter(e => e)
 
       const envFilePairs = envFileLines.map(line => {
         const [key, value] = line.split('=')
         return { key, value }
       })
 
-      await fs.copyFile(
-        path.join(projectDir, '.env.example'),
-        path.join(projectDir, '.env'),
+      // Replace MONGODB_URI and PAYLOAD_SECRET values
+      const newEnvFilePairs = envFilePairs.map(pair => {
+        if (pair.key === 'MONGODB_URI' || pair.key === 'MONGO_URL') {
+          return { key: pair.key, value: databaseUri }
+        }
+        if (pair.key === 'PAYLOAD_SECRET' || pair.key === 'PAYLOAD_SECRET_KEY') {
+          return { key: pair.key, value: payloadSecret }
+        }
+        return pair
+      })
+
+      // Write new .env file
+      const newEnvFileLines = newEnvFilePairs.map(
+        pair => `${pair.key}=${pair.value}`,
       )
 
+      await fs.writeFile(path.join(projectDir, '.env'), newEnvFileLines.join('\n'))
       return
     }
 
