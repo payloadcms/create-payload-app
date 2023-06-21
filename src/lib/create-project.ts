@@ -108,9 +108,7 @@ export async function createProject(
       const msg =
         'Unable to copy template files. Please check template name or directory permissions.'
       error(msg)
-      if (err instanceof Error) {
-        console.error({ err })
-      }
+      console.error({ err })
       process.exit(1)
     }
   }
