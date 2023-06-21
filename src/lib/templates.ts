@@ -53,29 +53,5 @@ export async function getValidTemplates(): Promise<ProjectTemplate[]> {
     },
   ]
 
-  const jsTemplates: ProjectTemplate[] = [
-    {
-      name: 'js-blank',
-      language: 'javascript',
-      type: 'static',
-      description: 'JavaScript - Blank',
-      directory: 'js-blank',
-    },
-    {
-      name: 'js-todo',
-      language: 'javascript',
-      type: 'static',
-      description: 'JavaScript - Todo list',
-      directory: 'js-todo',
-    },
-    {
-      name: 'js-blog',
-      language: 'javascript',
-      type: 'static',
-      description: 'JavaScript - Blog',
-      directory: 'js-blog',
-    },
-  ]
-
-  return [...templates, ...starters, ...jsTemplates]
+  return [...templates, ...starters]
 }
