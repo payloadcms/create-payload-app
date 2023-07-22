@@ -10,6 +10,7 @@ export interface Args extends arg.Spec {
   '--no-deps': BooleanConstructor
   '--dry-run': BooleanConstructor
   '--beta': BooleanConstructor
+  '--no-telemetry': BooleanConstructor
   '-h': string
   '-n': string
   '-t': string

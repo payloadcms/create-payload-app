@@ -58,13 +58,13 @@ export async function getLatestPayloadVersion(
 export async function updatePayloadVersion(
   projectDir: string,
   betaFlag = false,
-): Promise<void> {
+): Promise<{ payloadVersion: string | undefined }> {
   const payloadVersion = await getLatestPayloadVersion(betaFlag)
   if (!payloadVersion) {
     warning(
       'Error retrieving latest Payload version. Please update your package.json manually.',
     )
-    return
+    return { payloadVersion: undefined }
   }
 
   const packageJsonPath = path.resolve(projectDir, 'package.json')
@@ -77,6 +77,7 @@ export async function updatePayloadVersion(
       'Unable to write Payload version to package.json. Please update your package.json manually.',
     )
   }
+  return { payloadVersion }
 }
 
 export async function createProject(
@@ -84,7 +85,7 @@ export async function createProject(
   projectDir: string,
   template: ProjectTemplate,
   packageManager: string,
-): Promise<void> {
+): Promise<{ payloadVersion: string | undefined }> {
   await createOrFindProjectDir(projectDir)
 
   console.log(
@@ -115,9 +116,10 @@ export async function createProject(
 
   const spinner = ora('Checking latest Payload version...').start()
 
+  let payloadVersion: string | undefined
   // Only use latest Payoad version if a brand new static template is being used
   if (template.type === 'static') {
-    await updatePayloadVersion(projectDir, args['--beta'])
+    ;({ payloadVersion } = await updatePayloadVersion(projectDir, args['--beta']))
   }
 
   spinner.text = 'Installing dependencies...'
@@ -129,4 +131,5 @@ export async function createProject(
   } else {
     error('Error installing dependencies')
   }
+  return { payloadVersion }
 }
