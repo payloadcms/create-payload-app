@@ -11,6 +11,7 @@ import { writeEnvFile } from './lib/write-env-file'
 import type { CliArgs } from './types'
 import { success } from './utils/log'
 import { helpMessage, successMessage, welcomeMessage } from './utils/messages'
+import { sendEvent } from './utils/telemetry'
 
 export class Main {
   args: CliArgs
@@ -28,6 +29,7 @@ export class Main {
         '--no-deps': Boolean,
         '--dry-run': Boolean,
         '--beta': Boolean,
+        '--no-telemetry': Boolean,
 
         '-h': '--help',
         '-n': '--name',
@@ -62,14 +64,28 @@ export class Main {
         projectName === '.' ? process.cwd() : `./${slugify(projectName)}`
       const packageManager = await getPackageManager(this.args)
 
+      const anonUsage = {
+        template: template.name,
+        packageManager,
+      }
+
       if (!this.args['--dry-run']) {
-        await createProject(this.args, projectDir, template, packageManager)
+        const { payloadVersion } = await createProject(
+          this.args,
+          projectDir,
+          template,
+          packageManager,
+        )
         await writeEnvFile({
           databaseUri,
           payloadSecret,
           template,
           projectDir,
         })
+
+        if (!this.args['--no-telemetry']) {
+          await sendEvent({ ...anonUsage, payloadVersion })
+        }
       }
 
       success('Payload project successfully created')
