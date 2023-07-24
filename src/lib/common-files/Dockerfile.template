@@ -4,9 +4,9 @@ FROM base as builder
 
 WORKDIR /home/node/app
 COPY package*.json ./
+RUN {{installCmd}}
 
 COPY . .
-RUN {{installCmd}}
 RUN {{buildCmd}}
 
 FROM base as runtime
