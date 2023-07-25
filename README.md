@@ -21,3 +21,7 @@ CLI for easily starting new Payload project
       --no-deps                          Do not install any dependencies
       --help                             Show help
 ```
+
+## For development
+
+You can run this in development using `npx ts-node src/index.ts`
