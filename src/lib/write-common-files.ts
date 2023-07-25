@@ -32,6 +32,11 @@ export async function writeCommonFiles(
   const nodemonDest = path.resolve(projectDir, 'nodemon.json')
   await fse.copy(nodemon, nodemonDest)
 
+  // .vscode/launch.json
+  const launchjson = path.resolve(commonFilesDir, '.vscode/launch.json')
+  const launchjsonDest = path.resolve(projectDir, '.vscode/launch.json')
+  await fse.copy(launchjson, launchjsonDest)
+
   // README.md
   const readmeTemplate = await fse.readFile(
     path.resolve(commonFilesDir, 'README.template.md'),
